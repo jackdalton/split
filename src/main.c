@@ -44,7 +44,8 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) { // han
     update_time();
     update_date();
     update_dow();
-    if (units_changed & HOUR_UNIT) { // on the hour change...
+    bool isCharging = battery_state_service_peek().is_charging;
+    if (units_changed & HOUR_UNIT && isCharging == false) { // on the hour change when the watch is not charging...
         vibes_double_pulse(); // ... vibrate!
     }
 }

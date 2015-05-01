@@ -93,6 +93,7 @@ static void main_window_unload(Window *window) { // called on window unload
 }
 
 static void init() { // window initialization
+    vibes_short_pulse(); // alerts the user that the face is enabled
     tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
     s_main_window = window_create();
     window_set_window_handlers(s_main_window, (WindowHandlers) {

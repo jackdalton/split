@@ -10,7 +10,9 @@ static TextLayer *s_time_layer;
 static TextLayer *s_date_layer;
 static TextLayer *s_dow_layer;
 
-static void update_time() {
+// various layers ^^
+
+static void update_time() { // updates time
     time_t temp = time(NULL);
     struct tm *tick_time = localtime(&temp);
     static char buffer[] = "00:00";
@@ -23,7 +25,7 @@ static void update_time() {
     text_layer_set_text(s_time_layer, buffer);
 }
 
-static void update_date() {
+static void update_date() { // updates date
     time_t temp = time(NULL);
     struct tm *tick_time = localtime(&temp);
     static char buffer[] = "00-00 DOW";
@@ -31,7 +33,7 @@ static void update_date() {
     text_layer_set_text(s_date_layer, buffer);
 }
 
-static void update_dow() {
+static void update_dow() { // updates day of week
     time_t temp = time(NULL);
     struct tm *tick_time = localtime(&temp);
     static char buffer[] = "DOW";
@@ -39,16 +41,16 @@ static void update_dow() {
     text_layer_set_text(s_dow_layer, buffer);
 }
 
-static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
+static void tick_handler(struct tm *tick_time, TimeUnits units_changed) { // handles time ticks
     update_time();
     update_date();
     update_dow();
-    if (units_changed & HOUR_UNIT) {
-        vibes_double_pulse();
+    if (units_changed & HOUR_UNIT) { // on the hour change...
+        vibes_double_pulse(); // ... vibrate!
     }
 }
 
-static void main_window_load(Window *window) {
+static void main_window_load(Window *window) { // called on window load
     // ** background layer ** //
     s_background_bitmap = gbitmap_create_with_resource(RESOURCE_ID_BACKGROUND_IMAGE);
     s_background_layer = bitmap_layer_create(GRect(0, 0, 144, 168));
@@ -80,29 +82,31 @@ static void main_window_load(Window *window) {
     layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_dow_layer));
 }
 
-static void main_window_unload(Window *window) {
+static void main_window_unload(Window *window) { // called on window unload
     gbitmap_destroy(s_background_bitmap);
     bitmap_layer_destroy(s_background_layer);
     
     text_layer_destroy(s_time_layer);
     text_layer_destroy(s_date_layer);
     text_layer_destroy(s_dow_layer);
+    
+    // ^ destroys layers
 }
 
-static void init() {
+static void init() { // window initialization
     tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
     s_main_window = window_create();
     window_set_window_handlers(s_main_window, (WindowHandlers) {
         .load = main_window_load,
         .unload = main_window_unload
     });
-    window_stack_push(s_main_window, true);
+    window_stack_push(s_main_window, true); // pushes new window to the window stack
 }
-static void deinit() {
-    window_destroy(s_main_window);
+static void deinit() { // called on face quit
+    window_destroy(s_main_window); // destroys window
 }
-int main(void) {
-    init();
-    app_event_loop();
-    deinit();
+int main(void) { // called on face start
+    init(); // initializes face
+    app_event_loop(); // starts face event loop
+    deinit(); // deinitializes face
 }

@@ -9,6 +9,7 @@ static BitmapLayer *s_background_layer;
 static GBitmap *s_background_bitmap;
 static TextLayer *s_time_layer;
 static TextLayer *s_date_layer;
+static TextLayer *s_dow_layer;
 
 static void update_time() {
     time_t temp = time(NULL);
@@ -31,9 +32,18 @@ static void update_date() {
     text_layer_set_text(s_date_layer, buffer);
 }
 
+static void update_dow() {
+    time_t temp = time(NULL);
+    struct tm *tick_time = localtime(&temp);
+    static char buffer[] = "DOW";
+    strftime(buffer, sizeof("DOW"), "%A", tick_time);
+    text_layer_set_text(s_dow_layer, buffer);
+}
+
 static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
     update_time();
     update_date();
+    update_dow();
 }
 
 static void main_window_load(Window *window) {
@@ -43,7 +53,7 @@ static void main_window_load(Window *window) {
     bitmap_layer_set_bitmap(s_background_layer, s_background_bitmap);
     layer_add_child(window_get_root_layer(window), bitmap_layer_get_layer(s_background_layer));
     // ** time layer ** //
-    s_time_layer = text_layer_create(GRect(0, 15, 144, 50));
+    s_time_layer = text_layer_create(GRect(0, 5, 144, 50));
     text_layer_set_background_color(s_time_layer, GColorClear);
     text_layer_set_text_color(s_time_layer, GColorWhite);
     text_layer_set_text(s_time_layer, "00:00");
@@ -51,13 +61,21 @@ static void main_window_load(Window *window) {
     text_layer_set_text_alignment(s_time_layer, GTextAlignmentCenter);
     layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_time_layer));
     // ** date layer ** //
-    s_date_layer = text_layer_create(GRect(0, 85, 144, 50));
+    s_date_layer = text_layer_create(GRect(0, 70, 144, 50));
     text_layer_set_background_color(s_date_layer, GColorClear);
     text_layer_set_text_color(s_date_layer, GColorWhite);
     text_layer_set_text(s_date_layer, "00-00");
-    text_layer_set_font(s_date_layer, fonts_get_system_font(FONT_KEY_BITHAM_42_BOLD));
+    text_layer_set_font(s_date_layer, fonts_get_system_font(FONT_KEY_BITHAM_30_BLACK));
     text_layer_set_text_alignment(s_date_layer, GTextAlignmentCenter);
     layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_date_layer));
+    // ** day of week layer ** //
+    s_dow_layer = text_layer_create(GRect(0, 115, 144, 50));
+    text_layer_set_background_color(s_dow_layer, GColorClear);
+    text_layer_set_text_color(s_dow_layer, GColorWhite);
+    text_layer_set_text(s_dow_layer, "DOW");
+    text_layer_set_font(s_dow_layer, fonts_get_system_font(FONT_KEY_BITHAM_30_BLACK));
+    text_layer_set_text_alignment(s_dow_layer, GTextAlignmentCenter);
+    layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_dow_layer));
 }
 
 static void main_window_unload(Window *window) {
@@ -66,6 +84,7 @@ static void main_window_unload(Window *window) {
     
     text_layer_destroy(s_time_layer);
     text_layer_destroy(s_date_layer);
+    text_layer_destroy(s_dow_layer);
 }
 
 static void init() {

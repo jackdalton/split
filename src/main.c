@@ -1,5 +1,7 @@
 #include <pebble.h>
-
+/* TODO
+    *Add battery indicator?
+*/
 static Window *s_main_window;
 static BitmapLayer *s_background_layer;
 static GBitmap *s_background_bitmap;
@@ -40,6 +42,9 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
     update_time();
     update_date();
     update_dow();
+    if (units_changed & HOUR_UNIT) {
+        vibes_double_pulse();
+    }
 }
 
 static void main_window_load(Window *window) {

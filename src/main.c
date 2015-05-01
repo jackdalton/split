@@ -1,9 +1,5 @@
 #include <pebble.h>
-/* TODO
-    *Move date up; add day of week: http://www.cplusplus.com/reference/ctime/strftime/
-        *Make date font smaller
-    *Move time up to center it between the split, and the top of the watch.
-*/
+
 static Window *s_main_window;
 static BitmapLayer *s_background_layer;
 static GBitmap *s_background_bitmap;

@@ -9,6 +9,11 @@
     "resources": {
         "media": [
             {
+                "file": "images/screenshot.png",
+                "name": "FACE_SCREENSHOT",
+                "type": "png"
+            },
+            {
                 "file": "images/background.png",
                 "name": "BACKGROUND_IMAGE",
                 "type": "png"

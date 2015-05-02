@@ -30,7 +30,7 @@
     "shortName": "Split",
     "uuid": "40afd4f4-ec53-4d10-956c-c861e55a1fce",
     "versionCode": 1,
-    "versionLabel": "1.3",
+    "versionLabel": "1.4",
     "watchapp": {
         "watchface": true
     }

@@ -16,10 +16,10 @@ static void update_time() { // updates time
     struct tm *tick_time = localtime(&temp);
     static char buffer[] = "00:00";
     if (clock_is_24h_style() == true) {
-        strftime(buffer, sizeof("00:00"), "%H:%M", tick_time);
+        strftime(buffer, sizeof(buffer), "%H:%M", tick_time);
     }
     else {
-        strftime(buffer, sizeof("00:00"), "%I:%M", tick_time);
+        strftime(buffer, sizeof(buffer), "%I:%M", tick_time);
     }
     text_layer_set_text(s_time_layer, buffer);
 }
@@ -27,8 +27,8 @@ static void update_time() { // updates time
 static void update_date() { // updates date
     time_t temp = time(NULL);
     struct tm *tick_time = localtime(&temp);
-    static char buffer[] = "00-00 DOW";
-    strftime(buffer, sizeof("00-00"), "%m-%d", tick_time);
+    static char buffer[] = "00-00";
+    strftime(buffer, sizeof(buffer), "%m-%d", tick_time);
     text_layer_set_text(s_date_layer, buffer);
 }
 
@@ -36,7 +36,7 @@ static void update_dow() { // updates day of week
     time_t temp = time(NULL);
     struct tm *tick_time = localtime(&temp);
     static char buffer[] = "DOW";
-    strftime(buffer, sizeof("DOW"), "%A", tick_time);
+    strftime(buffer, sizeof(buffer), "%A", tick_time);
     text_layer_set_text(s_dow_layer, buffer);
 }
 

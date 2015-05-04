@@ -1,6 +1,6 @@
 #include <pebble.h>
 /* TODO
-    *Add battery indicator?
+    *Nothing, for now.
 */
 static Window *s_main_window;
 static BitmapLayer *s_background_layer;

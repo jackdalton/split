@@ -60,7 +60,7 @@ static void main_window_load(Window *window) { // called on window load
     s_time_layer = text_layer_create(GRect(0, 5, 144, 50));
     text_layer_set_background_color(s_time_layer, GColorClear);
     text_layer_set_text_color(s_time_layer, GColorWhite);
-	update_time();
+	update_time(); // set text to current time
     text_layer_set_font(s_time_layer, fonts_get_system_font(FONT_KEY_BITHAM_42_BOLD));
     text_layer_set_text_alignment(s_time_layer, GTextAlignmentCenter);
     layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_time_layer));
@@ -68,7 +68,7 @@ static void main_window_load(Window *window) { // called on window load
     s_date_layer = text_layer_create(GRect(0, 70, 144, 50));
     text_layer_set_background_color(s_date_layer, GColorClear);
     text_layer_set_text_color(s_date_layer, GColorWhite);
-	update_date();
+	update_date(); // set text to current date
     text_layer_set_font(s_date_layer, fonts_get_system_font(FONT_KEY_BITHAM_30_BLACK));
     text_layer_set_text_alignment(s_date_layer, GTextAlignmentCenter);
     layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_date_layer));
@@ -76,7 +76,7 @@ static void main_window_load(Window *window) { // called on window load
     s_dow_layer = text_layer_create(GRect(0, 115, 144, 50));
     text_layer_set_background_color(s_dow_layer, GColorClear);
     text_layer_set_text_color(s_dow_layer, GColorWhite);
-	update_dow();
+	update_dow(); // set text to current day of week
     text_layer_set_font(s_dow_layer, fonts_get_system_font(FONT_KEY_BITHAM_30_BLACK));
     text_layer_set_text_alignment(s_dow_layer, GTextAlignmentCenter);
     layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_dow_layer));

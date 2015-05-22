@@ -96,7 +96,7 @@ static void main_window_unload(Window *window) { // called on window unload
 static void init() { // window initialization
     bool isCharging = battery_state_service_peek().is_charging;
 	if (isCharging == false) {
-		vibes_short_pulse(); // alerts the user that the face is enabled with a short vibration, as long as the watch isn't charging.
+		//vibes_short_pulse(); // alerts the user that the face is enabled with a short vibration, as long as the watch isn't charging.
 	}
     tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
     s_main_window = window_create();
